@@ -42,8 +42,6 @@ namespace osu.Framework.Input.Handlers.Tablet
                 if (!Tablets.Any() && args.Additions.Any())
                     detectAsync();
             };
-
-            detectAsync();
         }
 
         private void postLog(object? _, LogMessage logMessage)

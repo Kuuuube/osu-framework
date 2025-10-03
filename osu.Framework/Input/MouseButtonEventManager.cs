@@ -68,6 +68,11 @@ namespace osu.Framework.Input
         protected double? LastClickTime;
 
         /// <summary>
+        /// The time of last doubleclick.
+        /// </summary>
+        protected double? LastDoubleClickTime;
+
+        /// <summary>
         /// The drawable which is clicked by the last click.
         /// </summary>
         protected WeakReference<Drawable> ClickedDrawable = new WeakReference<Drawable>(null!);
@@ -109,11 +114,21 @@ namespace osu.Framework.Input
 
             if (LastClickTime != null && InputManager.Time.Current - LastClickTime < DoubleClickTime)
             {
-                if (handleDoubleClick(state, targets))
+                if (LastDoubleClickTime != null && InputManager.Time.Current - LastDoubleClickTime < DoubleClickTime)
+                {
+                    if (handleTripleClick(state, targets))
+                    {
+                        //when we handle a triple-click we want to block a normal click from firing.
+                        BlockNextClick = true;
+                        LastClickTime = null;
+                        LastDoubleClickTime = null;
+                    }
+                }
+                else if (handleDoubleClick(state, targets))
                 {
                     //when we handle a double-click we want to block a normal click from firing.
                     BlockNextClick = true;
-                    LastClickTime = null;
+                    LastDoubleClickTime = InputManager.Time.Current;
                 }
             }
 
@@ -182,6 +197,17 @@ namespace osu.Framework.Input
                 return false;
 
             return PropagateButtonEvent(new[] { clicked }, new DoubleClickEvent(state, Button, MouseDownPosition)) != null;
+        }
+
+        private bool handleTripleClick(InputState state, List<Drawable> targets)
+        {
+            if (!ClickedDrawable.TryGetTarget(out Drawable? clicked))
+                return false;
+
+            if (!targets.Contains(clicked))
+                return false;
+
+            return PropagateButtonEvent(new[] { clicked }, new TripleClickEvent(state, Button, MouseDownPosition)) != null;
         }
 
         private void handleDrag(InputState state, Vector2 lastPosition)

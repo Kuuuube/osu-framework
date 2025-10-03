@@ -2043,6 +2043,9 @@ namespace osu.Framework.Graphics
                 case DoubleClickEvent doubleClick:
                     return OnDoubleClick(doubleClick);
 
+                case TripleClickEvent tripleClick:
+                    return OnTripleClick(tripleClick);
+
                 case DragStartEvent dragStart:
                     return OnDragStart(dragStart);
 
@@ -2187,6 +2190,16 @@ namespace osu.Framework.Graphics
         /// <param name="e">The <see cref="DoubleClickEvent"/> containing information about the input event.</param>
         /// <returns>Whether to block the next <see cref="OnClick"/> event from occurring.</returns>
         protected virtual bool OnDoubleClick(DoubleClickEvent e) => Handle(e);
+
+        /// <summary>
+        /// An event that occurs when a <see cref="MouseButton"/> is triple-clicked on this <see cref="Drawable"/>.
+        /// </summary>
+        /// <remarks>
+        /// This will only be invoked on the <see cref="Drawable"/> that returned <code>true</code> from a previous <see cref="OnDoubleClick"/> invocation.
+        /// </remarks>
+        /// <param name="e">The <see cref="TripleClickEvent"/> containing information about the input event.</param>
+        /// <returns>Whether to block the next <see cref="OnClick"/> event from occurring.</returns>
+        protected virtual bool OnTripleClick(TripleClickEvent e) => Handle(e);
 
         /// <summary>
         /// An event that occurs when the mouse starts dragging on this <see cref="Drawable"/>.

@@ -20,6 +20,7 @@ namespace osu.Framework.SourceGeneration.Tests.HandleInput
         [InlineData("OnMouseUpMethod")]
         [InlineData("OnClickMethod")]
         [InlineData("OnDoubleClickMethod")]
+        [InlineData("OnTripleClickMethod")]
         [InlineData("OnDragStartMethod")]
         [InlineData("OnDragMethod")]
         [InlineData("OnDragEndMethod")]

@@ -31,6 +31,7 @@ namespace osu.Framework.Graphics
                 nameof(OnMouseUp),
                 nameof(OnClick),
                 nameof(OnDoubleClick),
+                nameof(OnTripleClick),
                 nameof(OnDragStart),
                 nameof(OnDrag),
                 nameof(OnDragEnd),

@@ -120,6 +120,7 @@ namespace osu.Framework.SourceGeneration.Generators.HandleInput
             "OnMouseUp",
             "OnClick",
             "OnDoubleClick",
+            "OnTripleClick",
             "OnDragStart",
             "OnDrag",
             "OnDragEnd",

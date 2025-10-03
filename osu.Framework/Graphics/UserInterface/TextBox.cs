@@ -1383,6 +1383,21 @@ namespace osu.Framework.Graphics.UserInterface
             return true;
         }
 
+        protected override bool OnTripleClick(TripleClickEvent e)
+        {
+            FinalizeImeComposition(true);
+
+            var lastSelectionBounds = getTextSelectionBounds();
+
+            if (text.Length == 0) return true;
+
+            SelectAll();
+
+            onTextSelectionChanged(TextSelectionType.All, lastSelectionBounds);
+
+            return true;
+        }
+
         private static int findSeparatorIndex(string input, int searchPos, int direction)
         {
             bool isLetterOrDigit = char.IsLetterOrDigit(input[searchPos]);
